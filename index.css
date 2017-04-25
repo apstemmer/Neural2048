@@ -11,7 +11,7 @@ html, body{
   height:50vh;
   margin-top:-25vh; /* this is half the height of your div*/
   margin-left:-25vh;
-  background-color: grey;
+  background-color: #bbada0;
 }
 
 #grid div{
@@ -19,6 +19,6 @@ html, body{
   height: 23%;
   margin: 1%;
   width: 23%;
-  background-color: #999;
+  background-color: #cdc1b4;
   border-radius: 4%;
 }
