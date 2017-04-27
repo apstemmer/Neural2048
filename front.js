@@ -1,3 +1,0 @@
-$.get("/move", function(string) {
-    
-})

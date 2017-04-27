@@ -1,4 +1,3 @@
-const http = require('http');
 var path = require('path');
 var express = require('express');
 var app = express();
@@ -13,5 +12,7 @@ app.get('/move',(req,res)=>{
   console.log("received AJAX call");
   res.send("55");
 });
+
+
 
 app.listen(3000);
