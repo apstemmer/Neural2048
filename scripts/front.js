@@ -1,5 +1,21 @@
+const colors = {
+  "2" : "#eee4da",
+  "4" : "#ede0c8",
+  "8" : "#f2b179",
+  "16" : "#f59563",
+  "32" : "#f67c5f",
+  "64" : "#f65e3b",
+  "128" : "#edcf72",
+  "256" : "#edcc61",
+  "512" : "#edc850",
+  "1024" : "#edc53f",
+  "2048" : "#edc22e",
+  "4096" : "#3e3933"
+};
+
 $(document).ready(function(){
   let grid = document.getElementsByClassName('tile-grid');
+
   console.log(grid);
 
   //place all elements on top of the plain tiles;
@@ -15,27 +31,71 @@ $(document).ready(function(){
     grid[0].appendChild(ch);
   }
 
-  let tiles = document.getElementsByClassName('tile');
+
 
 
   let MainLoop = ()=>{
-    let move = "";
 
-    $.get("/move", function(movement) {
-      move = movement;
-    });
+    //var p = new Date();
+    //console.log(p.getTime());
+    let move = $.ajax({
+      url:"/move",
+      success:function(res){
+        if(res.isOk == false){
+          alert(result.message);
+        }},
+        async:false
+
+    }).responseText;// gets the move from server
+
+    console.log(move);
+    let tiles = document.getElementsByClassName('tile');
+    //
+    switch (move) {
+      case "u":
+        for(var i=0;i<tiles.length-4;i++){
+          if(findIntersect(tiles[i].classList, tiles[i+4].classList)){
+            console.log("up: " + i +" "+ (i+4));
+            $(`.tiles:nth-child(${i+4})`).animate({top:$(`.val-2:nth-child(${i})`).position().top},1000);
+          }
+        }
+        break;
+      case "d":
+        console.log('d');
+        break;
+      case "l":
+        console.log('l');
+        break;
+      case "r":
+        console.log('r');
+        break;
+      default:
+        //alert("server error");
+
+    }
 
     let emptyElems = document.getElementsByClassName('empty');
     if (emptyElems.length != 0){
       let toAdjust = emptyElems[Math.floor(Math.random()*emptyElems.length)];
-      toAdjust.style.backgroundColor = "blue";
-      toAdjust.classList.remove("empty");
+      setVal(toAdjust, Math.random() > 0.9 ? 4 : 2);
     }
-
-    
 
 
     setTimeout(MainLoop, 1000);
   }
   MainLoop();
 })
+
+var setVal = function (obj, newVal){
+  obj.innerHTML = newVal;
+  obj.style.backgroundColor = colors[newVal];
+  obj.classList.remove("empty");
+  obj.classList.add("val-"+newVal);
+}
+
+var findIntersect = function(arr1, arr2){
+  let isect = arr1.forEach(function(value) {
+      return (arr2.contains(value) > -1) && value.substring(0,3) == "val";
+  });
+  return isect;
+}
