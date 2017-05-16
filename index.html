@@ -3,48 +3,55 @@
 <head>
   <title="Neural 2048">
   <link type="text/css" href="index.css" rel="stylesheet" />
+  <link type="text/css" href="game.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="front.js"></script>
-  <script src="api.js"></script>
+  <script src="/scripts/front.js"></script>
+  <script src="/scripts/api.js"></script>
 </head>
 <body>
+<div id=container>
+  <div class="heading">
+    <h1 class="title">2048</h1>
+  </div>
+  <div class="control-bar">
+    <div class="run">
+      run
+    </div>
+    <div class="stop">
+      stop
+    </div>
+  </div>
+
+
   <div id=grid>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-    <div class="elem">
-    </div>
-  </div>
 
-  <div id="control">
+
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+
+
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+      <div class="elem"></div>
+
+    <div class="tile-grid">
+
+    </div>
 
   </div>
+</div>
 </body>
 </html>

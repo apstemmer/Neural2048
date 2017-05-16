@@ -10,9 +10,12 @@ app.get('/',(req, res)=>{
 
 app.get('/move',(req,res)=>{
   console.log("received AJAX call");
-  res.send("55");
+  var moves = ["u","r","d","l"];//up right down left
+  res.send(moves[Math.floor(Math.random()*moves.length)]);
 });
 
 
 
-app.listen(3000);
+app.listen(3000, function(){
+  console.log("started listening on port 3000");
+});

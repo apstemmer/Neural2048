@@ -1,4 +1,6 @@
 # Neural2048
+Credits for design of the game go to:https://gabrielecirulli.github.io/2048/
+
 Practising Neural Networks by trying to create a 2048 bot
 
 Layout of the project is as follows:
