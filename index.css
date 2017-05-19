@@ -2,6 +2,7 @@ html, body{
  margin:0;
  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
  color: #776e65;
+ background-color: #faf8ef;
 }
 
 #grid{
@@ -20,6 +21,19 @@ html, body{
   text-align: center;
   font-weight: bold;
   line-height: 200%;
+}
+
+.control-button{
+  color:white;
+  display: inline-block;
+  height: 50px;
+  padding: 0 15px;
+  text-align: center;
+  line-height: 50px;;
+  background-color: #8f7a66;
+  border-radius: 3px;
+  font-weight: bold;
+  margin: 0 20px;
 }
 
 .elem, .tile{

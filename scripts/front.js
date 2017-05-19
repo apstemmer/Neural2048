@@ -48,26 +48,51 @@ $(document).ready(function(){
 
     }).responseText;// gets the move from server
 
-    console.log(move);
+
     let tiles = document.getElementsByClassName('tile');
-    //
+    let absGrid = [[],[],[],[]];
+    for (let i = 0; i < tiles.length; i++){
+      if(tiles[i].classList[1] == "empty") {
+        absGrid[Math.floor(i/4)][i%4] = 0;
+      }
+      else if(typeof Number(tiles[i].classList[1].substring(4)) == "number")
+      {
+        absGrid[Math.floor(i/4)][i%4] = Number(tiles[i].classList[1].substring(4));
+      }
+    }
+
+    if(move === "u"){
+
+
+        //[[2,0,2,0],[4,0,2,2],[2,2,2,2],[4,2,0,2]];
+
+
+
+      }
+    }
+
+
     switch (move) {
       case "u":
         for(var i=0;i<tiles.length-4;i++){
-          if(findIntersect(tiles[i].classList, tiles[i+4].classList)){
-            console.log("up: " + i +" "+ (i+4));
-            $(`.tiles:nth-child(${i+4})`).animate({top:$(`.val-2:nth-child(${i})`).position().top},1000);
+          if(tiles[i].classList[1] == tiles[i+4].classList[1] && tiles[i].classList[1] != "empty"){
+            //console.log("up: " + i +" "+ (i+4));
+            // let topVal = $(tiles[i+4]).position().top;
+            // $(tiles[i+4]).animate({top:$(tiles[i]).position().top},1000, ()=>{
+            //   $(tiles[i+4]).animate({top:topVal},500);
+            // });
+
           }
         }
         break;
       case "d":
-        console.log('d');
+        //console.log('d');
         break;
       case "l":
-        console.log('l');
+        //console.log('l');
         break;
       case "r":
-        console.log('r');
+        //console.log('r');
         break;
       default:
         //alert("server error");
@@ -93,9 +118,51 @@ var setVal = function (obj, newVal){
   obj.classList.add("val-"+newVal);
 }
 
-var findIntersect = function(arr1, arr2){
-  let isect = arr1.forEach(function(value) {
-      return (arr2.contains(value) > -1) && value.substring(0,3) == "val";
-  });
-  return isect;
+var sortInPlace = function(arr){
+  //brings all zeros to right and keeps order correct
+  for(var i = 0; i < arr.length; i++){
+    for(var j = 0; j< arr.length-1; j++){
+      if(arr[j][0] == 0 && arr[j+1][0] != 0){
+        let temp = arr[j];
+        arr[j] = arr[j+1];
+        arr[j+1] = temp;
+        arr[j][2] += 1; //one movement of elem
+      }
+    }
+  }
+  return arr;
+}
+
+var combineElems = function(arr){
+  for(var i = 0; i < arr.length-1; i++){
+    if(arr[i][0] === arr[i+1][0] && arr[i][0] != 0){
+      arr[i][0] *= 2;
+      arr[i+1][0] = 0;
+      arr[i+1][2] += 1;
+    }
+  }
+  return arr;
+}
+
+var goUp = function(grid){
+  for(var i=0; i < grid.length; i++)
+  {
+    let tosort = [];
+    for(var j=0; j<grid.length; j++)
+    {
+      tosort.push([absGrid[j][i],j,0]);//retrieve a column [val,start,displace]
+    }
+    //array with [finalval,startpos,stepstaken]
+    let steps = sortInPlace(combineElems(sortInPlace(tosort)));//creates required array;
+
+    for(var k = 0; k < grid.length; k++){
+      grid[steps[k][1]][i] = {
+        "fval":(steps[k][0]),
+        "tox":j,
+        "toy":(steps[k][1]-steps[k][2])
+      }
+    }
+  }
+  console.log(steps);
+  return grid;
 }
